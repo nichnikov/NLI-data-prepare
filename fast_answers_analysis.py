@@ -24,9 +24,16 @@ for a_id in uniques_answers:
 
 print(ids_answers[:10])
 print(len(ids_answers))
+paraphrases_answers = []
 
 answers = [tx for i, tx in ids_answers]
 paraphrases = util.paraphrase_mining(model, answers)
-for paraphrase in paraphrases[0:10]:
+for paraphrase in paraphrases:
     score, i, j = paraphrase
-    print("{} \t\t {} \t\t Score: {:.4f}".format(ids_answers[i], ids_answers[j], score))
+    if score >= 0.9:
+        print("{} \t\t {} \t\t Score: {:.4f}".format(ids_answers[i], ids_answers[j], score))
+        paraphrases_answers.append((ids_answers[i][0], ids_answers[i][1], ids_answers[j][0], ids_answers[j][1], score))
+
+paraphrases_answers_df = pd.DataFrame(paraphrases_answers, columns=["id1", "query1", "id2", "query2", "Score"])
+print(paraphrases_answers_df)
+paraphrases_answers_df.to_csv(os.path.join(PROJECT_ROOT_DIR, "data", "paraphrases_queries.csv"), sep="\t", index=False)
