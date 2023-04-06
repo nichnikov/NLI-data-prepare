@@ -1,8 +1,8 @@
 import os
 import re
 import pandas as pd
-from sentence_transformers import SentenceTransformer, util
 from config import PROJECT_ROOT_DIR
+from sentence_transformers import SentenceTransformer, util
 
 
 model = SentenceTransformer('paraphrase-multilingual-mpnet-base-v2')
