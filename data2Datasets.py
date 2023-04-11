@@ -21,10 +21,10 @@ print(train_df, validate_df, test_df)
 ds_dict = {}
 
 for nm, df in [("train", train_df), ("validation", validate_df), ("test", test_df)]:
-    dataset = Dataset.from_dict({"query": list(df["query"]), "answer": list(df["answer"]), "label": list(df["label"])})
+    dataset = Dataset.from_dict({"query": list(df["query"][:1000]), "answer": list(df["answer"][:1000]), "label": list(df["label"][:1000])})
     ds_dict[nm] = dataset
 
 datasets = DatasetDict(ds_dict)
 print(datasets)
 
-datasets.save_to_disk(os.path.join("data", "datasets.huggingface"))
+datasets.save_to_disk(os.path.join("data", "datasets_litle.huggingface"))
